@@ -1,23 +1,18 @@
-# Python
-
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-*.sqlite3
-*.db
-
-# Virtual Environment
+# Virtual Environments
 venv/
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Environment files
 .env
 
-# VSCode / PyCharm
+# IDE folders
 .vscode/
 .idea/
 
-# Jupyter/Colab
-*.ipynb_checkpoints/
-
-# System
+# Misc
 .DS_Store
 Thumbs.db
