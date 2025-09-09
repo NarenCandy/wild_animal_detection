@@ -1,0 +1,23 @@
+# Python
+
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.db
+
+# Virtual Environment
+venv/
+.env
+
+# VSCode / PyCharm
+.vscode/
+.idea/
+
+# Jupyter/Colab
+*.ipynb_checkpoints/
+
+# System
+.DS_Store
+Thumbs.db
