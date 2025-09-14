@@ -1,18 +1,56 @@
-# Virtual Environments
-venv/
-.venv/
-
-# Python cache
+# -------------------------
+# Python / FastAPI backend
+# -------------------------
 __pycache__/
-*.py[cod]
+*.pyc
+*.pyo
+*.pyd
+*.log
+.venv/
+env/
+venv/
+.env               
+*.sqlite3
 
-# Environment files
-.env
-
-# IDE folders
+# Virtual environment IDE helpers
 .vscode/
 .idea/
 
+# YOLO detection output images
+detected_*.jpg
+*.png
+*.jpeg
+
+
+# -------------------------
+# Flutter / Dart frontend
+# -------------------------
+# Build outputs
+frontend/build/
+frontend/.dart_tool/
+frontend/.packages
+frontend/.flutter-plugins
+frontend/.flutter-plugins-dependencies
+frontend/.pub-cache/
+frontend/.gradle/
+frontend/.idea/
+frontend/ios/Flutter/Flutter.framework
+frontend/ios/Flutter/Flutter.podspec
+frontend/ios/Pods/
+frontend/ios/.symlinks/
+frontend/ios/Flutter/Generated.xcconfig
+frontend/ios/Flutter/ephemeral/
+frontend/ios/Runner.xcworkspace/
+frontend/android/.gradle/
+frontend/android/app/build/
+frontend/android/local.properties
+
+# Secrets
+frontend/.env        # flutter env (use .env.example instead)
+
 # Misc
+*.iml
+*.ipr
+*.iws
 .DS_Store
-Thumbs.db
+*.swp
