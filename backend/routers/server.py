@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, Request
 from backend.deps import get_current_user
 
 router = APIRouter(prefix="/server", tags=["server"])
-
+camera_process = None  # track camera subprocess
 process = None  # track subprocess
 
 @router.post("/start")
@@ -41,3 +41,37 @@ async def stop_server(current_user: dict = Depends(get_current_user)):
         process = None
         return {"status": "stopped"}
     return {"status": "not running"}
+
+
+
+# ------------------ CAMERA STREAM CONTROL ------------------
+
+@router.post("/start-camera")
+async def start_camera(request: Request, current_user: dict = Depends(get_current_user)):
+    global camera_process
+    if camera_process and camera_process.poll() is None:
+        return {"status": "camera already running"}
+
+    auth_header = request.headers.get("Authorization")
+    if not auth_header or not auth_header.startswith("Bearer "):
+        return {"error": "Missing token"}
+    token = auth_header.split(" ")[1]
+
+    env = os.environ.copy()
+    env["API_BASE_URL"] = "http://127.0.0.1:8000"
+    env["API_TOKEN"] = token
+
+    script_path = os.path.abspath("camera_stream.py")
+    python_path = os.path.abspath(os.path.join("venv", "Scripts", "python.exe"))
+
+    camera_process = subprocess.Popen([python_path, script_path], env=env)
+    return {"status": "camera started"}
+
+@router.post("/stop-camera")
+async def stop_camera(current_user: dict = Depends(get_current_user)):
+    global camera_process
+    if camera_process and camera_process.poll() is None:
+        camera_process.terminate()
+        camera_process = None
+        return {"status": "camera stopped"}
+    return {"status": "camera not running"}

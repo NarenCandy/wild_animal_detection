@@ -33,7 +33,7 @@ class _ProfilePageState extends State<ProfilePage> {
       return;
     }
     setState(() {
-      _user = User.fromJson(data); // ✅ convert to User model
+      _user = User.fromJson(data);
       _isLoading = false;
     });
   }
@@ -48,46 +48,103 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
+  Widget _buildInfoRow(IconData icon, String label, String? value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, color: Colors.teal, size: 24),
+          const SizedBox(width: 12),
+          Expanded(
+            child: RichText(
+              text: TextSpan(
+                style: const TextStyle(fontSize: 18, color: Colors.black87),
+                children: [
+                  TextSpan(
+                    text: '$label: ',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  TextSpan(
+                    text: value ?? 'Not provided',
+                    style: const TextStyle(fontWeight: FontWeight.normal),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
         title: const Text("Profile"),
         backgroundColor: Colors.teal,
+        elevation: 0,
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : _user == null
-              ? const Center(child: Text("Failed to load profile"))
-              : Padding(
+              ? const Center(
+                  child: Text(
+                    "Failed to load profile",
+                    style: TextStyle(fontSize: 18, color: Colors.redAccent),
+                  ),
+                )
+              : SingleChildScrollView(
                   padding: const EdgeInsets.all(24),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text("👤 Name: ${_user!.name}",
-                          style: const TextStyle(fontSize: 18)),
-                      const SizedBox(height: 12),
-                      Text("📧 Email: ${_user!.email}",
-                          style: const TextStyle(fontSize: 18)),
-                      const SizedBox(height: 12),
-                      Text("📱 Phone: ${_user!.phone}",
-                          style: const TextStyle(fontSize: 18)),
-                      const Spacer(),
+                      Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        elevation: 6,
+                        color: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.all(24),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "User Profile",
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.teal.shade700,
+                                ),
+                              ),
+                              const Divider(height: 30, thickness: 1),
+                              _buildInfoRow(Icons.person, "Name", _user!.name),
+                              _buildInfoRow(Icons.email, "Email", _user!.email),
+                              _buildInfoRow(Icons.phone, "Phone", _user!.phone),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 40),
                       ElevatedButton(
                         onPressed: () => _logout(context),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.red,
+                          backgroundColor: Colors.redAccent,
                           padding: const EdgeInsets.symmetric(
-                            vertical: 14,
-                            horizontal: 24,
-                          ),
+                              vertical: 16, horizontal: 24),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(12),
                           ),
+                          elevation: 4,
                         ),
                         child: const Text(
                           "Logout",
-                          style: TextStyle(fontSize: 16, color: Colors.white),
+                          style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ),
                     ],

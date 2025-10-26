@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/pages/dashboard.dart';
 import 'server_page.dart';
 import 'alerts_page.dart';
 import 'profile_page.dart';
@@ -17,6 +18,7 @@ class _MainAppState extends State<MainApp> {
     const ServerPage(),
     const AlertsPage(),
     const ProfilePage(),
+    const DashboardPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -47,6 +49,8 @@ class _MainAppState extends State<MainApp> {
             icon: Icon(Icons.person),
             label: "Profile",
           ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.bar_chart_rounded), label: "Dashboard"),
         ],
       ),
     );

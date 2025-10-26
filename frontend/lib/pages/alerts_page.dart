@@ -20,11 +20,16 @@ class _AlertsPageState extends State<AlertsPage> {
       _isLoading = true;
       _fetchedOnce = true;
     });
+
     final data = await ApiService.getAlerts();
     setState(() {
       _alerts = data;
       _isLoading = false;
     });
+  }
+
+  void _onAlertDeleted() {
+    _fetchAlerts();
   }
 
   @override
@@ -63,7 +68,10 @@ class _AlertsPageState extends State<AlertsPage> {
                         child: ListView.builder(
                           itemCount: _alerts.length,
                           itemBuilder: (context, index) {
-                            return AlertCard(alert: _alerts[index]); // ✅
+                            return AlertCard(
+                              alert: _alerts[index],
+                              onDeleted: _onAlertDeleted,
+                            ); // ✅
                           },
                         ),
                       ),

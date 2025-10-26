@@ -87,6 +87,21 @@ class ApiService {
     }
   }
 
+  static Future<bool> deleteAlert(String alertId) async {
+    final token = await getToken();
+    if (token == null) return false;
+    final url = Uri.parse('$baseUrl/alerts/$alertId');
+    final response = await http.delete(url, headers: {
+      'Authorization': 'Bearer $token', // Pass your token here
+      'Content-Type': 'application/json',
+    });
+
+    if (response.statusCode == 200) {
+      return true;
+    }
+    return false;
+  }
+
   // Get user profile
   static Future<Map<String, dynamic>?> getProfile() async {
     final token = await getToken();

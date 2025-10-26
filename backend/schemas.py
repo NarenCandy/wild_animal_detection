@@ -32,6 +32,7 @@ class AlertOut(BaseModel):
     user_id: str
     animal: str
     image_url: Optional[str] = None
+    alert_level: str = "MEDIUM"
     timestamp: datetime
 
 class AlertCreate(BaseModel):
