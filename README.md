@@ -92,7 +92,7 @@ Configure the API base URL depending on your testing setup:
 - Always commit your `requirements.txt`, `pubspec.yaml`, and `pubspec.lock`.
 - Frontend assets (e.g., custom MP3 files in `android/res/raw`) are included and versioned.
 - Data folders like `combined_dataset` are ignored via `.gitignore` to avoid uploading large datasets.
-- To download the dataset click this link 
+- To download the dataset click this link https://drive.google.com/drive/folders/1vNHmVtPJOUrrnWvqFKfPFMvQgZypgrsF?usp=drive_link
 - Just make sure that the camera feed url use different PORT, not the same as the API_BASE_URL
 
 ---
